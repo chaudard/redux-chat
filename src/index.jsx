@@ -38,7 +38,7 @@ const initialState = {
   selectedChannel: {name: "general"}
 };
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true, traceLimit: 10 }) || compose;
 const middlewares = composeEnhancers(applyMiddleware(reduxPromise,logger));
 
 // render an instance of the component in the DOM
