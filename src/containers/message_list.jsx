@@ -4,10 +4,14 @@ import { bindActionCreators } from 'redux';
 
 import Message from './message';
 import MessageForm from './message_form';
+import { fetchMessages } from '../actions/index.js';
 
 class MessageList extends Component {
     renderList = () => {
-        return this.props.messages.map( (message) => <Message message={message} key={message.created_at}/>)
+        return this.props.messages.map( (message) => <Message message={message} key={message.id}/>)
+    }
+    componentWillMount() {
+        this.props.fetchMessages('general');
     }
     render() {
         return (
@@ -19,10 +23,17 @@ class MessageList extends Component {
     }
 }
 
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(
+    { fetchMessages: fetchMessages },
+    dispatch
+    );
+}
+
 function mapReduxStateToProps(reduxState) {
     return {
       messages: reduxState.messages
     };
 }
   
-export default connect(mapReduxStateToProps)(MessageList);
+export default connect(mapReduxStateToProps, mapDispatchToProps)(MessageList);
