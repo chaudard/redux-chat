@@ -22,11 +22,19 @@ class MessageForm extends Component {
         this.setState({value: ''});
     }
 
+    componentDidMount() {
+        this.messageBox.focus();
+    }
+
     render() {
         return (
             <div>
                 <form className="channel-editor" onSubmit={this.handleSubmit}>
-                    <input type="text" value={this.state.value} className="form-control" onChange={this.handleChange} />
+                    <input type="text" 
+                            value={this.state.value} 
+                            className="form-control" 
+                            ref={(input) => { this.messageBox = input; }} 
+                            onChange={this.handleChange} />
                     <button type="submit">Send</button>
                 </form>
             </div>
