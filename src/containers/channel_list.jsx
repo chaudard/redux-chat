@@ -1,25 +1,42 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { selectChannel } from '../actions/index';
+
 import Channel from './channel';
+
 class ChannelList extends Component {
-    static defaultProps = {
-        channels: [
-            {name: "general"},
-            {name: "react"},
-            {name: "paris"}
-        ]
+      handleClick = (channel) => {
+        this.props.selectChannel(channel);
+      }    
+      renderChannel = (channel) => {
+        return (
+          <li onClick={() => this.handleClick(channel)} key={channel.name}>
+            #{channel.name}
+          </li>
+        );
       }
-    renderList = () => {
-        return this.props.channels.map( (channel) => <Channel channel={channel} key={channel.name}/>)
-    }
-    render() {
+      render() {
         return (
             <div className="channels-container">
               <span>Redux Chat</span>
               <ul>
-                {this.renderList()}
+                {this.props.channels.map((channel) => this.renderChannel(channel))}
               </ul>
             </div>
           );
     }
 }
-export default ChannelList;
+
+function mapStateToProps(state) {
+  return {
+    channels: state.channels,
+    selectedChannel: state.selectedChannel
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ selectChannel }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChannelList);

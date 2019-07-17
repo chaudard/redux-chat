@@ -24,7 +24,7 @@ class MessageList extends Component {
     }
 
     fetchMessages = () => {
-        this.props.fetchMessages('general');
+        this.props.fetchMessages(this.props.selectedChannel.name);
     }    
     componentDidUpdate() {
         this.list.scrollTop = this.list.scrollHeight;
@@ -34,7 +34,7 @@ class MessageList extends Component {
         return (
             <div className="channel-container">
                 <div className="channel-title">
-                    <span>Channel #general</span>
+                    <span>Channel #{this.props.selectedChannel.name}</span>
                 </div>
                 <div className="channel-content" ref={(list) => { this.list = list; }}>
                     {this.renderList()}
@@ -54,7 +54,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapReduxStateToProps(reduxState) {
     return {
-      messages: reduxState.messages
+      messages: reduxState.messages,
+      selectedChannel: reduxState.selectedChannel
     };
 }
   
