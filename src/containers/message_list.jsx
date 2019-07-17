@@ -10,9 +10,23 @@ class MessageList extends Component {
     renderList = () => {
         return this.props.messages.map( (message) => <Message message={message} key={message.id}/>)
     }
+
     componentWillMount() {
-        this.props.fetchMessages('general');
+        this.fetchMessages();
     }
+
+    componentDidMount() {
+        this.refresher = setInterval(this.fetchMessages, 3000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.refresher);
+    }
+
+    fetchMessages = () => {
+        this.props.fetchMessages('general');
+    }    
+
     render() {
         return (
             <div className="message-list">
