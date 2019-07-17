@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
+
+function strToRGB(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i += 1) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const c = (hash & 0x00FFFFFF)
+      .toString(16)
+      .toUpperCase();
+    return `#${"00000".substring(0, 6 - c.length)}${c}`;
+  }
+
 class Message extends Component {
     render() {
         return (
             <li className="list-group-item">
-                <h5>{this.props.message.author}</h5>
+                <h5 style={{ color: strToRGB(this.props.message.author) }}>{this.props.message.author}</h5>
                 {this.props.message.content}
             </li>
         )
