@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { emojify } from 'react-emojione';
 
 function strToRGB(str) {
     let hash = 0;
@@ -16,7 +17,7 @@ class Message extends Component {
         return (
             <li className="list-group-item">
                 <h5 style={{ color: strToRGB(this.props.message.author) }}>{this.props.message.author}</h5>
-                {this.props.message.content}
+                {emojify(this.props.message.content)}
             </li>
         )
     }
