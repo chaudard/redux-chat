@@ -13,11 +13,14 @@ import '../assets/stylesheets/application.scss';
 import MessagesReducer from './reducers/messages_reducer.js';
 import ChannelsReducer from './reducers/channels_reducer.js';
 import SelectedChannelReducer from './reducers/selected_channel_reducer.js';
+
 // State and reducers
+const identityReducer = (state = null) => state;
 const reducers = combineReducers({
   messages: MessagesReducer,
   channels: ChannelsReducer,
-  selectedChannel: SelectedChannelReducer
+  selectedChannel: SelectedChannelReducer,
+  currentUser: identityReducer // because the user never change
 });
 
 const initialState = {
