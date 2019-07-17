@@ -13,10 +13,13 @@ class ChannelList extends Component {
     }
     render() {
         return (
-            <div className="channel-list">
+            <div className="channels-container">
+              <span>Redux Chat</span>
+              <ul>
                 {this.renderList()}
+              </ul>
             </div>
-        )
+          );
     }
 }
 export default ChannelList;

@@ -26,11 +26,16 @@ class MessageList extends Component {
     fetchMessages = () => {
         this.props.fetchMessages('general');
     }    
-
+        
     render() {
         return (
-            <div className="message-list">
-                {this.renderList()}
+            <div className="channel-container">
+                <div className="channel-title">
+                    <span>Channel #general</span>
+                </div>
+                <div className="channel-content">
+                    {this.renderList()}
+                </div>
                 <MessageForm />
             </div>
         )
