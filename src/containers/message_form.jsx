@@ -1,17 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import selected_channel_reducer from '../reducers/selected_channel_reducer';
+
+import { createMessage } from '../actions/index.js';
+
 class MessageForm extends Component {
     constructor(props) {
         super(props);
         this.state = {value: ''}
     }
 
-    handleChange(event) {
+    handleChange = (event) => {
         this.setState({value: event.target.value});
     }
-
-    handleSubmit(event) {
-        // alert('A name was submitted: ' + this.state.value);
-        // event.preventDefault();
+    
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.props.createMessage(this.props.selectedChannel.name, this.props.currentUser, this.state.value);
+        this.setState({value: ''});
     }
 
     render() {
@@ -28,4 +36,20 @@ class MessageForm extends Component {
         )
     }
 }
-export default MessageForm;
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(
+    { createMessage: createMessage },
+    dispatch
+    );
+}
+  
+function mapStateToProps(state) {
+    return {
+        currentUser: state.currentUser,
+        selectedChannel: state.selectedChannel
+    };
+}
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(MessageForm);
+  
