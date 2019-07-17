@@ -26,14 +26,17 @@ class MessageList extends Component {
     fetchMessages = () => {
         this.props.fetchMessages('general');
     }    
-        
+    componentDidUpdate() {
+        this.list.scrollTop = this.list.scrollHeight;
+    }
+               
     render() {
         return (
             <div className="channel-container">
                 <div className="channel-title">
                     <span>Channel #general</span>
                 </div>
-                <div className="channel-content">
+                <div className="channel-content" ref={(list) => { this.list = list; }}>
                     {this.renderList()}
                 </div>
                 <MessageForm />
